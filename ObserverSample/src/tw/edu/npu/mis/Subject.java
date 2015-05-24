@@ -33,17 +33,17 @@ import java.util.List;
  * @author STP
  */
 public abstract class Subject {
-    private List<Observer> mSubject = new ArrayList<Observer>();
+     ArrayList<Observer> mSubject = new ArrayList<Observer>();
     
-    public void attach(Observer o){
+    void attach(Observer o){
         mSubject.add(o);
     }
-    public void detach(Observer o){
+    void detach(Observer o){
         mSubject.remove(o);
     }
-    public void nodifyObservers(Observer o){
+    void nodifyObservers(){
         for(Observer observer : mSubject){
-            o.Update();
+            observer.Update();
         }
     }
     
