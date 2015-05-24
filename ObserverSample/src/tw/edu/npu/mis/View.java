@@ -40,7 +40,6 @@ public class View {
         mName = name;
         mWindow = window;
         mModel = model;
-
     }
 
     /**
