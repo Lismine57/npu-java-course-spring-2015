@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Samael Wang <freesamael@gmail.com>
+ * Copyright (c) 2015, STP
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,35 +26,9 @@
 package tw.edu.npu.mis;
 
 /**
- * {@link View} generates outputs to the user.
  *
- * @author Samael Wang <freesamael@gmail.com>
+ * @author STP
  */
-public class View {
-
-    private final String mName;
-    private final Window mWindow;
-    private final Model mModel;
-
-    public View(String name, Window window, Model model) {
-        mName = name;
-        mWindow = window;
-        mModel = model;
-
-    }
-
-    /**
-     * Invalidate the view, which indicates it needs to be redrawn later.
-     */
-    public void invalidate() {
-        mWindow.schduleRedraw(this);
-    }
-
-    /**
-     * Show the content of the model on the console.
-     */
-    public void onDraw() {
-        System.out.println("View (" + mName + "): " + mModel.getData());
-    }
-
+public interface  Observer {
+     public void Update();
 }
