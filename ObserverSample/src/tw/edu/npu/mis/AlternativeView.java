@@ -40,8 +40,6 @@ public class AlternativeView implements Observer, Drawable{
         mWindow = window;
         mModel = model;
         mModel.attach(this);
-        
-
     }
 
     /**
