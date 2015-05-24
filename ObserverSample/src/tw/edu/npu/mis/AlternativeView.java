@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, Samael Wang <freesamael@gmail.com>
+ * Copyright (c) 2015, STP
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,47 +25,41 @@
  */
 package tw.edu.npu.mis;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Simulate Window objects in GUI toolkits.
  *
- * @author Samael Wang <freesamael@gmail.com>
+ * @author STP
  */
-public class Window {
+public class AlternativeView implements Observer, Drawable{
 
-    private Controller mController;
-    private List<Drawable> mInvalidViews;
+    private final String mName;
+    private final Window mWindow;
+    private final Model mModel;
 
-    /**
-     * Start the event loop.
-     *
-     * @param c The controller.
-     * @param views The views to draw on the first loop.
-     */
-    public void startEventLoop(Controller c, List<Drawable> views) {
-        mController = c;
-        mInvalidViews = new ArrayList<>(views);
+    public AlternativeView(String name, Window window, Model model) {
+        mName = name;
+        mWindow = window;
+        mModel = model;
+        mModel.attach(this);
+        
 
-        // Simulate how an event loop works.
-        while (true) {
-            mController.readInput();
-            for (Drawable v : mInvalidViews) {
-                v.onDraw();
-            }
-            mInvalidViews.clear();
-        }
     }
 
     /**
-     * Add a view to a queue for redraw on screen later.
-     *
-     * @param v View to redraw.
+     * Invalidate the view, which indicates it needs to be redrawn later.
      */
-    public void schduleRedraw(Drawable v) {
-        if(!mInvalidViews.contains(v)){
-            mInvalidViews.add(v);
-        }
+    public void invalidate() {
+        mWindow.schduleRedraw(this);
+    }
+
+    /**
+     * Show the content of the model on the console.
+     */
+    public void onDraw() {
+        System.out.println("AlternativeView (" + mName + "): " + new StringBuffer(mModel.getData()).reverse()) ;
+    }
+    
+    @Override
+    public void Update(){
+        invalidate();
     }
 }

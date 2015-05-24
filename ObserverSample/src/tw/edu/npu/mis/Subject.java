@@ -26,23 +26,23 @@
 package tw.edu.npu.mis;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  *
  * @author STP
  */
 public abstract class Subject {
-     ArrayList<Observer> mSubject = new ArrayList<Observer>();
+     ArrayList<Observer> mObserver = new ArrayList<Observer>();
     
     void attach(Observer o){
-        mSubject.add(o);
+        mObserver.add(o);
     }
     void detach(Observer o){
-        mSubject.remove(o);
+        mObserver.remove(o);
     }
     void nodifyObservers(){
-        for(Observer observer : mSubject){
+        for(Observer observer : mObserver){
             observer.Update();
         }
     }
