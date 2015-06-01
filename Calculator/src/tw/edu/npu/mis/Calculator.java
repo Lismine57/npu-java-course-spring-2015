@@ -5,6 +5,8 @@
  */
 package tw.edu.npu.mis;
 
+import javax.swing.JFrame;
+
 /**
  * The model class of the calculator application.
  */
@@ -54,7 +56,9 @@ public class Calculator {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        new CalculatorView().setVisible(true);
+    
+        
     }
 
 }
