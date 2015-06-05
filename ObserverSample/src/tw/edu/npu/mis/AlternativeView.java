@@ -30,7 +30,9 @@ package tw.edu.npu.mis;
  * @author STP
  */
 public class AlternativeView implements Observer, Drawable{
-
+/**
+ * 宣告AlternativeView物件 
+ */
     private final String mName;
     private final Window mWindow;
     private final Model mModel;
@@ -55,7 +57,9 @@ public class AlternativeView implements Observer, Drawable{
     public void onDraw() {
         System.out.println("AlternativeView (" + mName + "): " + new StringBuffer(mModel.getData()).reverse()) ;
     }
-    
+    /**
+     * 更新訊息方法Update()
+     */
     @Override
     public void Update(){
         invalidate();

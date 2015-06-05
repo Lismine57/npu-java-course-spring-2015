@@ -45,7 +45,7 @@ public class Model extends Subject {
 
     /**
      * Update model.
-     *
+     *增加nodifyObservers();　訂閱
      * @param data A {@link String} data.
      */
     public void setData(String data) {

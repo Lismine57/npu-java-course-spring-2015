@@ -27,7 +27,7 @@ package tw.edu.npu.mis;
 
 /**
  * {@link View} generates outputs to the user.
- *
+ *新增mModel.attach(this);
  * @author Samael Wang <freesamael@gmail.com>
  */
 public class View implements Observer, Drawable{

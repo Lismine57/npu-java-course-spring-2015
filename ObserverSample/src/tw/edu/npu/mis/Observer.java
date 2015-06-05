@@ -26,8 +26,8 @@
 package tw.edu.npu.mis;
 
 /**
- *
- * @author STP
+ * 新增Observer物件 Update() 更新資料
+ * @author Lainess
  */
 public interface  Observer {
      public void Update();

@@ -26,8 +26,8 @@
 package tw.edu.npu.mis;
 
 /**
- *
- * @author STP
+ * 宣告interface物件 Drawable方法
+ * @author Lainess
  */
 public interface Drawable {
      public void onDraw();

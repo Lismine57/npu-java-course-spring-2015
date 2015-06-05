@@ -29,8 +29,8 @@ import java.util.ArrayList;
 
 
 /**
- *
- * @author STP
+ * 新增訂閱，新增、刪除、更新
+ * @author Lainess
  */
 public abstract class Subject {
      ArrayList<Observer> mObserver = new ArrayList<Observer>();

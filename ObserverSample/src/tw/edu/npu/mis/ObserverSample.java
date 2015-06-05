@@ -33,6 +33,11 @@ import java.util.List;
  *
  * @author Samael Wang <freesamael@gmail.com>
  */
+
+/**
+ * 新增AlternativeView顯示與物件，View改為Drawable方法
+ * @author Lainess
+ */
 public class ObserverSample {
 
     public static void main(String[] args) {
