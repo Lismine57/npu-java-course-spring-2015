@@ -5,12 +5,19 @@
  */
 package tw.edu.npu.mis;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 
 /**
  * The model class of the calculator application.
  */
-public class Calculator {
+public class Calculator extends JFrame implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     /**
      * The available operators of the calculator.
