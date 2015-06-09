@@ -5,11 +5,6 @@
  */
 package tw.edu.npu.mis;
 
-
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
@@ -23,10 +18,6 @@ public class Calculator extends JFrame {
     private javax.swing.JTextField jTextField1;
     JButton jButton1;
      
-
-
-
-    
     /**
      * The available operators of the calculator.
      */
@@ -67,12 +58,6 @@ public class Calculator extends JFrame {
         // TODO code application logic here
         return null;
     }
-    
-
-    
-
-
-    
     /**
      * @param args the command line arguments
      */
@@ -82,7 +67,5 @@ public class Calculator extends JFrame {
                 new CalculatorView().setVisible(true);
             }
         });
-           
     }
-
 }
