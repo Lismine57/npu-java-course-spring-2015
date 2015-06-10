@@ -16,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class Calculator extends Observable {
 
-    String mShowNumber = "";
+    String mShowNumber = "0";
     String mSecondNumber = "";
     String mOperator1 = "";
 
@@ -49,7 +49,7 @@ public class Calculator extends Observable {
     }
 
     public void appendDigit(int digit) {
-      
+
         mShowNumber += Integer.toString(digit);
         setChanged();
         notifyObservers();
@@ -66,13 +66,18 @@ public class Calculator extends Observable {
                 mSecondNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator1 = "*";
+                mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
                 break;
-                
+            case PLUS:
+                mSecondNumber += mShowNumber;
+                mShowNumber = "";
+                mOperator1 = "+";
+                break;
 
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
         }
         setChanged();
-                notifyObservers();
+        notifyObservers();
     }
 
     public String getDisplay() {
