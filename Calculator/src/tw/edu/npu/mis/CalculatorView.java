@@ -4,18 +4,28 @@
  * and open the template in the editor.
  */
 package tw.edu.npu.mis;
+import java.util.Observable;
+import java.util.Observer;
+import tw.edu.npu.mis.Calculator.*;
 
 /**
  *
  * @author STP
  */
-public class CalculatorView extends javax.swing.JFrame {
+public class CalculatorView extends javax.swing.JFrame implements Observer{
 
+    Calculator mCalculator = new Calculator();
     /**
      * Creates new form CalculatorView
      */
     public CalculatorView() {
         initComponents();
+        mCalculator.addObserver(this);
+        
+    }
+    
+    public void update(Observable obj,Object arg){
+        jTextField1.setText(mCalculator.getDisplay());
     }
 
     /**
@@ -48,11 +58,6 @@ public class CalculatorView extends javax.swing.JFrame {
 
         jButton1.setText("1");
         jButton1.setMaximumSize(new java.awt.Dimension(73, 23));
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -76,23 +81,53 @@ public class CalculatorView extends javax.swing.JFrame {
         });
 
         jButton4.setLabel("4");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton5.setLabel("5");
         jButton5.setMaximumSize(new java.awt.Dimension(73, 23));
         jButton5.setMinimumSize(new java.awt.Dimension(73, 23));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton6.setLabel("6");
         jButton6.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("7");
         jButton7.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("8");
         jButton8.setMaximumSize(new java.awt.Dimension(73, 23));
         jButton8.setMinimumSize(new java.awt.Dimension(73, 23));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("9");
         jButton9.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("=");
         jButton10.setMaximumSize(new java.awt.Dimension(73, 23));
@@ -194,21 +229,42 @@ public class CalculatorView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1MouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jTextField1.setText("1");
+        mCalculator.appendDigit(1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jTextField1.setText("2");
+        mCalculator.appendDigit(2);
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        jTextField1.setText("3");
+        mCalculator.appendDigit(3);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        mCalculator.appendDigit(4);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        mCalculator.appendDigit(5);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        mCalculator.appendDigit(6);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        mCalculator.appendDigit(7);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        mCalculator.appendDigit(8);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        mCalculator.appendDigit(9);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,6 +299,8 @@ public class CalculatorView extends javax.swing.JFrame {
                 new CalculatorView().setVisible(true);
             }
         });
+        
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

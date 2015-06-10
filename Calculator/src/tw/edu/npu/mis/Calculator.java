@@ -5,19 +5,19 @@
  */
 package tw.edu.npu.mis;
 
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 
 
 /**
  * The model class of the calculator application.
  */
-public class Calculator extends JFrame {
-    
-    private javax.swing.JTextField jTextField1;
-    JButton jButton1;
-     
+public class Calculator extends Observable{
+    String ShowNumber = "" ;
     /**
      * The available operators of the calculator.
      */
@@ -42,8 +42,13 @@ public class Calculator extends JFrame {
         MEM_RECALL   // MR
     }
 
+    
     public void appendDigit(int digit) {
-        // TODO code application logic here
+       JTextField mTxvShow = new JTextField();
+       ShowNumber += Integer.toString(digit);
+       mTxvShow.setText(ShowNumber);
+       setChanged();
+       notifyObservers();
     }
 
     public void appendDot() {
@@ -55,8 +60,8 @@ public class Calculator extends JFrame {
     }
 
     public String getDisplay() {
-        // TODO code application logic here
-        return null;
+     
+        return ShowNumber;
     }
     /**
      * @param args the command line arguments
