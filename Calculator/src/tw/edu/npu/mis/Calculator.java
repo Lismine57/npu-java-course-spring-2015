@@ -16,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class Calculator extends Observable {
 
-    String mShowNumber = "0";
+    String mShowNumber = "";
     String mSecondNumber = "";
     String mOperator1 = "";
 
@@ -66,12 +66,27 @@ public class Calculator extends Observable {
                 mSecondNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator1 = "*";
-                mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
                 break;
             case PLUS:
                 mSecondNumber += mShowNumber;
                 mShowNumber = "";
                 mOperator1 = "+";
+                break;
+            case EQUAL:
+                switch (mOperator1) {
+                    case "+":
+                        mShowNumber = String.valueOf(Integer.parseInt(mSecondNumber) + Integer.parseInt(mShowNumber));
+                        break;
+                    case "-":
+                        mShowNumber = String.valueOf(Integer.parseInt(mSecondNumber) - Integer.parseInt(mShowNumber));
+                        break;
+                    case "*":
+                        mShowNumber = String.valueOf(Integer.parseInt(mSecondNumber) * Integer.parseInt(mShowNumber));
+                        break;
+                    case "/":
+                        mShowNumber = String.valueOf(Integer.parseInt(mSecondNumber) / Integer.parseInt(mShowNumber));
+                        break;
+                }
                 break;
 
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));

@@ -171,6 +171,11 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
 
         jButton14.setText("/");
         jButton14.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -290,8 +295,12 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+       mCalculator.performOperation(Operator.EQUAL);
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        mCalculator.performOperation(Operator.OVER);
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      * @param args the command line arguments
