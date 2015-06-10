@@ -11,13 +11,19 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-
-
 /**
  * The model class of the calculator application.
  */
-public class Calculator extends Observable{
-    String ShowNumber = "" ;
+public class Calculator extends Observable {
+
+    String mShowNumber = "";
+    String mSecondNumber = "";
+    String mOperator1 = "";
+
+    void appendDigit(Operator operator) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     /**
      * The available operators of the calculator.
      */
@@ -42,13 +48,11 @@ public class Calculator extends Observable{
         MEM_RECALL   // MR
     }
 
-    
     public void appendDigit(int digit) {
-       JTextField mTxvShow = new JTextField();
-       ShowNumber += Integer.toString(digit);
-       mTxvShow.setText(ShowNumber);
-       setChanged();
-       notifyObservers();
+      
+        mShowNumber += Integer.toString(digit);
+        setChanged();
+        notifyObservers();
     }
 
     public void appendDot() {
@@ -57,12 +61,25 @@ public class Calculator extends Observable{
 
     public void performOperation(Operator operator) {
         // TODO code application logic here
+        switch (operator) {
+            case TIMES:
+                mSecondNumber = mShowNumber;
+                mShowNumber = "";
+                mOperator1 = "*";
+                break;
+                
+
+            //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
+        }
+        setChanged();
+                notifyObservers();
     }
 
     public String getDisplay() {
-     
-        return ShowNumber;
+        String anser = mShowNumber + mOperator1;
+        return anser;
     }
+
     /**
      * @param args the command line arguments
      */

@@ -147,12 +147,22 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
 
         jButton11.setText("+");
         jButton11.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
         jButton12.setText("-");
         jButton12.setMaximumSize(new java.awt.Dimension(73, 23));
 
         jButton13.setText("*");
         jButton13.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setText("/");
         jButton14.setMaximumSize(new java.awt.Dimension(73, 23));
@@ -265,6 +275,14 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         mCalculator.appendDigit(9);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+       mCalculator.performOperation(Operator.TIMES);
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments
