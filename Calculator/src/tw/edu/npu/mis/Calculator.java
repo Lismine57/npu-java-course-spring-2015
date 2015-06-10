@@ -18,7 +18,7 @@ public class Calculator extends Observable {
 
     String mShowNumber = "";
     String mSecondNumber = "";
-    String mOperator1 = "";
+    String mOperator = "";
 
     void appendDigit(Operator operator) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -62,18 +62,29 @@ public class Calculator extends Observable {
     public void performOperation(Operator operator) {
         // TODO code application logic here
         switch (operator) {
+            case PLUS:
+                mSecondNumber = mShowNumber;
+                mShowNumber = "";
+                mOperator = "+";
+                break;
+            case MINUS:
+                mSecondNumber = mShowNumber;
+                mShowNumber = "";
+                mOperator = "-";
+                break;
             case TIMES:
                 mSecondNumber = mShowNumber;
                 mShowNumber = "";
-                mOperator1 = "*";
+                mOperator = "*";
                 break;
-            case PLUS:
-                mSecondNumber += mShowNumber;
+            case OVER:
+                mSecondNumber = mShowNumber;
                 mShowNumber = "";
-                mOperator1 = "+";
+                mOperator = "/";
                 break;
+
             case EQUAL:
-                switch (mOperator1) {
+                switch (mOperator) {
                     case "+":
                         mShowNumber = String.valueOf(Integer.parseInt(mSecondNumber) + Integer.parseInt(mShowNumber));
                         break;
@@ -96,7 +107,7 @@ public class Calculator extends Observable {
     }
 
     public String getDisplay() {
-        String anser = mShowNumber + mOperator1;
+        String anser = mShowNumber + mOperator;
         return anser;
     }
 
