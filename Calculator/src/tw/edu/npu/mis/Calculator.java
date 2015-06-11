@@ -17,8 +17,10 @@ import javax.swing.JTextField;
 public class Calculator extends Observable {
 
     String mShowNumber = "";
+    String mFirstNumber = "";
     String mSecondNumber = "";
     String mOperator = "";
+    boolean mOperatorMark ;
 
     void appendDigit(Operator operator) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -51,6 +53,8 @@ public class Calculator extends Observable {
     public void appendDigit(int digit) {
 
         mShowNumber += Integer.toString(digit);
+        //mFirstNumber = mShowNumber;
+        //mShowNumber = "";
         setChanged();
         notifyObservers();
     }
@@ -99,16 +103,21 @@ public class Calculator extends Observable {
                         break;
                 }
                 break;
-
+                
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
         }
+        mOperatorMark = true;
         setChanged();
         notifyObservers();
     }
 
     public String getDisplay() {
-        String anser = mShowNumber + mOperator;
-        return anser;
+        String mAnser = "";
+        //if(mOperatorMark = true) mAnser = mShowNumber + mOperator;
+        //else mAnser = mShowNumber;
+        //mAnser = mShowNumber + mOperator;
+        mAnser = mShowNumber;
+        return mAnser;
     }
 
     /**
