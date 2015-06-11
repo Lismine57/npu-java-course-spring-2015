@@ -160,6 +160,11 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
 
         jButton12.setText("-");
         jButton12.setMaximumSize(new java.awt.Dimension(73, 23));
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
         jButton13.setText("*");
         jButton13.setMaximumSize(new java.awt.Dimension(73, 23));
@@ -301,6 +306,10 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         mCalculator.performOperation(Operator.OVER);
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        mCalculator.performOperation(Operator.MINUS);
+    }//GEN-LAST:event_jButton12ActionPerformed
 
     /**
      * @param args the command line arguments
