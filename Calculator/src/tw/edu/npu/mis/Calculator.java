@@ -97,12 +97,16 @@ public class Calculator extends Observable {
                 mFirstNumber = "";
                 mBuffNumber = "";
                 mOperator = "";
-                
+                break;
+            case BACKSPACE:
+                mShowNumber = mShowNumber.substring(0, mShowNumber.length()-1);
+                break;
 
             case EQUAL:
                 switch (mOperator) {
                     case "+":
                         mShowNumber = String.valueOf(Double.parseDouble(mShowNumber) + Double.parseDouble(mFirstNumber));
+                        
                         break;
                     case "-":
                         mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
@@ -115,6 +119,7 @@ public class Calculator extends Observable {
                         
                         break;
                 }
+                mOperator = "=";
                 break;
 
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
