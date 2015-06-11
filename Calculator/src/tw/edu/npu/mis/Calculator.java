@@ -18,7 +18,7 @@ public class Calculator extends Observable {
 
     String mShowNumber = "";
     String mFirstNumber = "";
-    String mSecondNumber = "";
+    String mBuffNumber = "";
     String mOperator = "";
     String mAnser = "";
     boolean mOperatorMark;
@@ -55,9 +55,9 @@ public class Calculator extends Observable {
 
         mShowNumber += Integer.toString(digit);
         
-        if (mAnser.equals("+")) {
+        /*if (mAnser.equals("+")) {
             mSecondNumber = Integer.toString(digit);
-        }
+        }*/
 
         //mFirstNumber = mShowNumber;
         //mShowNumber = "";
@@ -74,27 +74,30 @@ public class Calculator extends Observable {
         switch (operator) {
             case PLUS:
                 mFirstNumber = mShowNumber;
-                if (mFirstNumber.length() > 0) {
-                    mSecondNumber = mShowNumber;
-                }
                 mShowNumber = "";
                 mOperator = "+";
                 break;
             case MINUS:
-                mSecondNumber = mShowNumber;
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "-";
                 break;
             case TIMES:
-                mSecondNumber = mShowNumber;
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "*";
                 break;
             case OVER:
-                mSecondNumber = mShowNumber;
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "/";
                 break;
+            case CLEAR:
+                mShowNumber = "";
+                mFirstNumber = "";
+                mBuffNumber = "";
+                mOperator = "";
+                
 
             case EQUAL:
                 switch (mOperator) {
@@ -102,14 +105,14 @@ public class Calculator extends Observable {
                         mShowNumber = String.valueOf(Double.parseDouble(mShowNumber) + Double.parseDouble(mFirstNumber));
                         break;
                     case "-":
-                        mShowNumber = String.valueOf(Double.parseDouble(mSecondNumber) - Double.parseDouble(mShowNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
                         break;
                     case "*":
-                        mShowNumber = String.valueOf(Double.parseDouble(mSecondNumber) * Double.parseDouble(mShowNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mShowNumber));
                         break;
                     case "/":
-                        mShowNumber = String.valueOf(Double.parseDouble(mSecondNumber) / Double.parseDouble(mShowNumber));
-                        mSecondNumber = mShowNumber;
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
+                        
                         break;
                 }
                 break;
