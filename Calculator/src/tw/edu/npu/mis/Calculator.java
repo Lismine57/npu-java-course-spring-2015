@@ -21,7 +21,7 @@ public class Calculator extends Observable {
     String mBuffNumber = "";
     String mOperator = "";
     String mAnser = "";
-    boolean mOperatorMark;
+    boolean mCheckDot;
 
     void appendDigit(Operator operator) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -54,11 +54,10 @@ public class Calculator extends Observable {
     public void appendDigit(int digit) {
 
         mShowNumber += Integer.toString(digit);
-        
-        /*if (mAnser.equals("+")) {
-            mSecondNumber = Integer.toString(digit);
-        }*/
 
+        /*if (mAnser.equals("+")) {
+         mSecondNumber = Integer.toString(digit);
+         }*/
         //mFirstNumber = mShowNumber;
         //mShowNumber = "";
         setChanged();
@@ -66,7 +65,11 @@ public class Calculator extends Observable {
     }
 
     public void appendDot() {
-        // TODO code application logic here
+        if (!mCheckDot) {
+            mShowNumber = mShowNumber + ".";
+            mCheckDot = true;
+        }
+        
     }
 
     public void performOperation(Operator operator) {
@@ -97,16 +100,15 @@ public class Calculator extends Observable {
                 mFirstNumber = "";
                 mBuffNumber = "";
                 mOperator = "";
+                mCheckDot = false;
                 break;
             case BACKSPACE:
-                mShowNumber = mShowNumber.substring(0, mShowNumber.length()-1);
+                mShowNumber = mShowNumber.substring(0, mShowNumber.length() - 1);
                 break;
-
             case EQUAL:
                 switch (mOperator) {
                     case "+":
-                        mShowNumber = String.valueOf(Double.parseDouble(mShowNumber) + Double.parseDouble(mFirstNumber));
-                        
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) + Double.parseDouble(mShowNumber));
                         break;
                     case "-":
                         mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
@@ -116,15 +118,13 @@ public class Calculator extends Observable {
                         break;
                     case "/":
                         mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
-                        
                         break;
                 }
                 mOperator = "=";
                 break;
-
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
         }
-        mOperatorMark = true;
+        //mOperatorMark = true;
         setChanged();
         notifyObservers();
     }
