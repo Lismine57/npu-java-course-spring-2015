@@ -111,6 +111,9 @@ public class Calculator extends Observable {
                 mShowNumber = "";
                 mOperator = "/";
                 break;
+            case CLEAR_ENTRY:
+                mShowNumber = "";
+                break;
             case CLEAR:
                 mShowNumber = "";
                 mFirstNumber = "";
@@ -228,7 +231,6 @@ public class Calculator extends Observable {
         //mOperatorMark = true;
         setChanged();
         notifyObservers();
-
     }
 
     /**
@@ -239,7 +241,6 @@ public class Calculator extends Observable {
         mAnser = mShowNumber + mOperator;
         return mAnser;
     }
-
     /**
      * @param args the command line arguments
      */
