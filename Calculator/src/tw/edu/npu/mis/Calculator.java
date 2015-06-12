@@ -12,15 +12,26 @@ import java.util.Observable;
  */
 public class Calculator extends Observable {
 
-    String mShowNumber = "";
-    String mFirstNumber = "";
-    String mBuffNumber = "0";
-    String mMBuffNumber = "";
-    String mOperator = "";
-    String mAnser = "";
-    boolean mCheckDot, mCheckPlusMinus, mEvenPlus, mEvenMinus,
-            mEvenTimes, mEvenOver, mCheckMemPlus, mCheckMemMinus;
+    String mShowNumber = "";  //顯示的數字
+    String mFirstNumber = ""; //第一個輸入的數字
+    String mBuffNumber = "0"; //Buff佔存數字
+    String mMBuffNumber = ""; //mem佔存的數字
+    String mOperator = ""; //運算符號
+    String mAnser = ""; // 顯示在Text的 數字和符號
+    boolean mCheckDot //檢查小數點有無重複
+            , mCheckPlusMinus //檢查正負符號是否啟用
+            , mEvenPlus //檢查連加事件
+            , mEvenMinus //檢查連減事件
+            , mEvenTimes //檢查連乘事件
+            , mEvenOver //檢查連除事件
+            , mCheckMemPlus //檢查M+是否啟動
+            , mCheckMemMinus; ////檢查M-是否啟動
 
+    /**
+     * 無動作
+     *
+     * @param operator
+     */
     void appendDigit(Operator operator) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -49,12 +60,20 @@ public class Calculator extends Observable {
         MEM_RECALL   // MR
     }
 
+    /**
+     * 把秀出來的字串ShowNumber 加上 接下來案的數字 例如: 123 → 123456
+     *
+     * @param digit
+     */
     public void appendDigit(int digit) {
         mShowNumber += Integer.toString(digit);
         setChanged();
         notifyObservers();
     }
 
+    /**
+     * 把小數點加在數字字串後面的方法
+     */
     public void appendDot() {
         if (!mCheckDot) {
             mShowNumber = mShowNumber + ".";
@@ -63,6 +82,11 @@ public class Calculator extends Observable {
 
     }
 
+    /**
+     * 運算的方法與計算
+     *
+     * @param operator
+     */
     public void performOperation(Operator operator) {
         // TODO code application logic here
         switch (operator) {
@@ -234,13 +258,14 @@ public class Calculator extends Observable {
     }
 
     /**
-     *
+     *把運算符號加在字串後方 以便判別
      * @return
      */
     public String getDisplay() {
         mAnser = mShowNumber + mOperator;
         return mAnser;
     }
+
     /**
      * @param args the command line arguments
      */
