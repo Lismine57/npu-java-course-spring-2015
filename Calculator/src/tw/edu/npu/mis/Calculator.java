@@ -216,8 +216,14 @@ public class Calculator extends Observable {
                 mCheckMemMinus = true;
                 break;
             case MEM_CLEAR:
-                mShowNumber = "";
-                
+                mMBuffNumber = "";
+                break;
+            case MEM_SET:
+                mMBuffNumber = mShowNumber;
+                break;
+            case MEM_RECALL:
+                mShowNumber = mBuffNumber;
+                break;
         }
         //mOperatorMark = true;
         setChanged();
