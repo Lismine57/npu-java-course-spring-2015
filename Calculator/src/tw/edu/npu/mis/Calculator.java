@@ -105,6 +105,14 @@ public class Calculator extends Observable {
             case BACKSPACE:
                 mShowNumber = mShowNumber.substring(0, mShowNumber.length() - 1);
                 break;
+             
+            case SQRT:
+                mShowNumber = String.valueOf(Math.sqrt(Double.parseDouble(mShowNumber)));
+                break;
+            case PLUS_MINUS:
+                mShowNumber = "-" + mShowNumber;
+                break;
+                
             case EQUAL:
                 switch (mOperator) {
                     case "+":
