@@ -9,8 +9,8 @@ import java.util.Observer;
 import tw.edu.npu.mis.Calculator.*;
 
 /**
- *
- * @author STP
+ * 這是一個View
+ * @author Lainess
  */
 public class CalculatorView extends javax.swing.JFrame implements Observer{
 
@@ -23,7 +23,11 @@ public class CalculatorView extends javax.swing.JFrame implements Observer{
         mCalculator.addObserver(this);
         
     }
-    
+    /**
+     * 使用update 方法 Observable和物件參數
+     * @param obj
+     * @param arg 
+     */
     public void update(Observable obj,Object arg){
         jTextField1.setText(mCalculator.getDisplay());
     }

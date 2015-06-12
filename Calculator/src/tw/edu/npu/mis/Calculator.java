@@ -28,15 +28,6 @@ public class Calculator extends Observable {
             , mCheckMemMinus; ////檢查M-是否啟動
 
     /**
-     * 無動作
-     *
-     * @param operator
-     */
-    void appendDigit(Operator operator) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
      * The available operators of the calculator.
      */
     public enum Operator {
@@ -62,7 +53,7 @@ public class Calculator extends Observable {
 
     /**
      * 把秀出來的字串ShowNumber 加上 接下來案的數字 例如: 123 → 123456
-     *
+     *設定監聽和變動
      * @param digit
      */
     public void appendDigit(int digit) {
@@ -84,7 +75,7 @@ public class Calculator extends Observable {
 
     /**
      * 運算的方法與計算
-     *
+     *用Switch的方法撰寫
      * @param operator
      */
     public void performOperation(Operator operator) {
@@ -258,7 +249,8 @@ public class Calculator extends Observable {
     }
 
     /**
-     *把運算符號加在字串後方 以便判別
+     * 把運算符號加在字串後方 以便判別
+     *加在一起後並回傳
      * @return
      */
     public String getDisplay() {
