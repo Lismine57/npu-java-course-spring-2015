@@ -21,7 +21,8 @@ public class Calculator extends Observable {
     String mBuffNumber = "0";
     String mOperator = "";
     String mAnser = "";
-    boolean mCheckDot, mCheckPlusMinus, mEvenPlus;
+    boolean mCheckDot, mCheckPlusMinus, mEvenPlus, mEvenMinus,
+            mEvenTimes, mEvenOver;
 
     void appendDigit(Operator operator) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -52,14 +53,7 @@ public class Calculator extends Observable {
     }
 
     public void appendDigit(int digit) {
-
         mShowNumber += Integer.toString(digit);
-
-        /*if (mAnser.equals("+")) {
-         mSecondNumber = Integer.toString(digit);
-         }*/
-        //mFirstNumber = mShowNumber;
-        //mShowNumber = "";
         setChanged();
         notifyObservers();
     }
@@ -77,29 +71,39 @@ public class Calculator extends Observable {
         switch (operator) {
             case PLUS:
                 mFirstNumber = mShowNumber;
-                if(mEvenPlus)
+                if (mEvenPlus) {
                     mBuffNumber = mFirstNumber;
-                
+                }
                 mShowNumber = "";
                 mOperator = "+";
                 mEvenPlus = true;
-                
-
                 break;
             case MINUS:
                 mFirstNumber = mShowNumber;
+                if (mEvenMinus) {
+                    mBuffNumber = mFirstNumber;
+                }
                 mShowNumber = "";
                 mOperator = "-";
+                mEvenMinus = true;
                 break;
             case TIMES:
                 mFirstNumber = mShowNumber;
+                if (mEvenTimes) {
+                    mBuffNumber = mFirstNumber;
+                }
                 mShowNumber = "";
                 mOperator = "*";
+                mEvenTimes = true;
                 break;
             case OVER:
                 mFirstNumber = mShowNumber;
+                if (mEvenOver) {
+                    mBuffNumber = mFirstNumber;
+                }
                 mShowNumber = "";
                 mOperator = "/";
+                mEvenOver = true;
                 break;
             case CLEAR:
                 mShowNumber = "";
@@ -116,6 +120,7 @@ public class Calculator extends Observable {
                 break;
             case RECIPROCAL:
                 mShowNumber = String.valueOf(1 / Double.parseDouble(mShowNumber));
+                break;
             case PLUS_MINUS:
                 if (!mCheckPlusMinus) {
                     mShowNumber = "-" + mShowNumber;
@@ -125,25 +130,37 @@ public class Calculator extends Observable {
                     mCheckPlusMinus = false;
                 }
                 break;
-
+            case PERCENT:
+                if (mOperator == "+" || mOperator == "-" || mOperator == "*" || mOperator == "/") {
+                    mShowNumber = String.valueOf(Double.parseDouble(mShowNumber) / 100);
+                }
+                break;
             case EQUAL:
                 switch (mOperator) {
                     case "+":
-                        //mFirstNumber = String.valueOf(Double.parseDouble(mFirstNumber) + Double.parseDouble(mShowNumber));
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) 
-                                + Double.parseDouble(mShowNumber) 
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                + Double.parseDouble(mShowNumber)
                                 + Double.parseDouble(mBuffNumber));
                         mEvenPlus = false;
-                        
                         break;
                     case "-":
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                - Double.parseDouble(mShowNumber)
+                                - Double.parseDouble(mBuffNumber));
+                        mEvenMinus = false;
                         break;
                     case "*":
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mShowNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                * Double.parseDouble(mShowNumber)
+                                * Double.parseDouble(mBuffNumber));
+                        mEvenTimes = false;
                         break;
                     case "/":
                         mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                / Double.parseDouble(mShowNumber)
+                                / Double.parseDouble(mBuffNumber));
+                        mEvenOver = false;
                         break;
                 }
                 mOperator = "=";
@@ -156,12 +173,12 @@ public class Calculator extends Observable {
         notifyObservers();
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDisplay() {
-
-        //if(mAnser.length() > 0 && mAnser.equals("+")) mAnser = mShowNumber;
-        //else mAnser = mShowNumber + mOperator;
         mAnser = mShowNumber + mOperator;
-        //mAnser = mShowNumber;
         return mAnser;
     }
 
