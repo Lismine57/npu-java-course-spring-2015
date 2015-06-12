@@ -6,10 +6,6 @@
 package tw.edu.npu.mis;
 
 import java.util.Observable;
-import java.util.Observer;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 /**
  * The model class of the calculator application.
@@ -19,10 +15,11 @@ public class Calculator extends Observable {
     String mShowNumber = "";
     String mFirstNumber = "";
     String mBuffNumber = "0";
+    String mMBuffNumber = "";
     String mOperator = "";
     String mAnser = "";
     boolean mCheckDot, mCheckPlusMinus, mEvenPlus, mEvenMinus,
-            mEvenTimes, mEvenOver;
+            mEvenTimes, mEvenOver, mCheckMemPlus, mCheckMemMinus;
 
     void appendDigit(Operator operator) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -70,58 +67,55 @@ public class Calculator extends Observable {
         // TODO code application logic here
         switch (operator) {
             case PLUS:
-                if (mEvenPlus) {
-                    mBuffNumber = mFirstNumber;
-                    mFirstNumber = String.valueOf(Double.parseDouble(mShowNumber) + Double.parseDouble(mBuffNumber));
-                    mBuffNumber = "";
-                    mShowNumber = mFirstNumber;
+                if (mOperator == "+") {
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                            + Double.parseDouble(mShowNumber));
+                    mFirstNumber = mShowNumber;
+                    mEvenPlus = true;
+                    //System.out.println("B: " + mBuffNumber + " F: " + mFirstNumber + " S:" + mShowNumber);
+                } else {
+                    mFirstNumber = mShowNumber;
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                            + Double.parseDouble(mShowNumber));
                 }
-                mFirstNumber = mShowNumber;
+                //System.out.println("OB: " + mBuffNumber + " OF: " + mFirstNumber + " OS:" + mShowNumber);
                 mShowNumber = "";
                 mOperator = "+";
-                mEvenPlus = true;
                 break;
             case MINUS:
-                if (mEvenMinus) {
-                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mBuffNumber));
-                    mFirstNumber = "";
+                if (mOperator == "-") {
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
+                    mEvenMinus = true;
                 }
-                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "-";
-                mEvenMinus = true;
                 break;
             case TIMES:
-
-                if (mEvenTimes) {
-                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mBuffNumber));
-                    mFirstNumber = "";
+                if (mOperator == "*") {
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
+                    mEvenTimes = true;
                 }
                 mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "*";
-                mEvenTimes = true;
                 break;
             case OVER:
-
                 if (mOperator == "/") {
                     mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
-                    System.out.println(mFirstNumber + "S: " + mShowNumber + "B:" + mBuffNumber);
                     mEvenOver = true;
                 }
                 mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "/";
-
-                System.out.println(mFirstNumber + "S: " + mShowNumber + "B:" + mBuffNumber);
                 break;
             case CLEAR:
                 mShowNumber = "";
                 mFirstNumber = "";
                 mBuffNumber = "0";
+                mBuffNumber = "";
                 mOperator = "";
                 mCheckDot = false;
                 break;
@@ -151,23 +145,33 @@ public class Calculator extends Observable {
             case EQUAL:
                 switch (mOperator) {
                     case "+":
-
-                        mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
-                                + Double.parseDouble(mFirstNumber)
-                                + Double.parseDouble(mShowNumber));
-
+                        if (mEvenPlus) {
+                            mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                    + Double.parseDouble(mShowNumber));
+                        } else {
+                            mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                    + Double.parseDouble(mShowNumber));
+                        }
                         mEvenPlus = false;
                         break;
                     case "-":
-                        mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
-                                - Double.parseDouble(mFirstNumber)
-                                - Double.parseDouble(mShowNumber));
+                        if (mEvenMinus) {
+                            mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                    - Double.parseDouble(mShowNumber));
+                        } else {
+                            mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                    - Double.parseDouble(mShowNumber));
+                        }
                         mEvenMinus = false;
                         break;
                     case "*":
-                        mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
-                                * Double.parseDouble(mFirstNumber)
-                                * Double.parseDouble(mShowNumber));
+                        if (mEvenTimes) {
+                            mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                    * Double.parseDouble(mShowNumber));
+                        } else {
+                            mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                    * Double.parseDouble(mShowNumber));
+                        }
                         mEvenTimes = false;
                         break;
                     case "/":
@@ -185,11 +189,40 @@ public class Calculator extends Observable {
                 mBuffNumber = "0";
                 mCheckPlusMinus = false;
                 break;
+
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
+            case MEM_PLUS:
+                if (!mCheckMemPlus) {
+                    mMBuffNumber = mShowNumber;
+                    mFirstNumber = "";
+                    mShowNumber = "";
+                } else {
+                    mShowNumber = String.valueOf(Double.parseDouble(mShowNumber)
+                            + Double.parseDouble(mMBuffNumber));
+                    mCheckMemPlus = false;
+                }
+                mCheckMemPlus = true;
+                break;
+            case MEM_MINUS:
+                if (!mCheckMemMinus) {
+                    mMBuffNumber = mShowNumber;
+                    mFirstNumber = "";
+                    mShowNumber = "";
+                } else {
+                    mShowNumber = String.valueOf(Double.parseDouble(mMBuffNumber)
+                            - Double.parseDouble(mShowNumber));
+                    mCheckMemMinus = false;
+                }
+                mCheckMemMinus = true;
+                break;
+            case MEM_CLEAR:
+                mShowNumber = "";
+                
         }
         //mOperatorMark = true;
         setChanged();
         notifyObservers();
+
     }
 
     /**
