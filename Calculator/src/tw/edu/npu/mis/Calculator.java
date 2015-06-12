@@ -82,7 +82,7 @@ public class Calculator extends Observable {
         // TODO code application logic here
         switch (operator) {
             case PLUS:
-                if (mOperator == "+") {
+                if (mOperator.equals("+")) {
                     mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
                             + Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
@@ -98,7 +98,7 @@ public class Calculator extends Observable {
                 mOperator = "+";
                 break;
             case MINUS:
-                if (mOperator == "-") {
+                if (mOperator.equals("-")) {
                     mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
                     mEvenMinus = true;
@@ -107,7 +107,7 @@ public class Calculator extends Observable {
                 mOperator = "-";
                 break;
             case TIMES:
-                if (mOperator == "*") {
+                if (mOperator.equals("*")) {
                     mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
                     mEvenTimes = true;
@@ -117,7 +117,7 @@ public class Calculator extends Observable {
                 mOperator = "*";
                 break;
             case OVER:
-                if (mOperator == "/") {
+                if (mOperator.equals("/")) {
                     mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
                     mFirstNumber = mShowNumber;
                     mEvenOver = true;
@@ -156,7 +156,7 @@ public class Calculator extends Observable {
                 }
                 break;
             case PERCENT:
-                if (mOperator == "+" || mOperator == "-" || mOperator == "*" || mOperator == "/") {
+                if (mOperator.equals("+") || mOperator.equals("-") || mOperator.equals("*") || mOperator.equals("/")) {
                     mShowNumber = String.valueOf(Double.parseDouble(mShowNumber) / 100);
                 }
                 break;
