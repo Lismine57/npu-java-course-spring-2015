@@ -52,14 +52,22 @@ public class Calculator extends Observable {
     }
 
     /**
-     * 把秀出來的字串ShowNumber 加上 接下來案的數字 例如: 123 → 123456
-     *設定監聽和變動
+     * 把秀出來的字串ShowNumber 加上 接下來案的數字 例如: 123 → 123456 設定監聽和變動 若有等於 按按鈕時 會顯示按下的按鈕
+     *
      * @param digit
      */
     public void appendDigit(int digit) {
-        mShowNumber += Integer.toString(digit);
-        setChanged();
-        notifyObservers();
+        if (mOperator.equals("=")) {
+            mShowNumber = String.valueOf(digit);
+            mOperator = "";
+            setChanged();
+            notifyObservers();
+        } else {
+            mShowNumber += Integer.toString(digit);
+            setChanged();
+            notifyObservers();
+        }
+
     }
 
     /**
@@ -74,8 +82,8 @@ public class Calculator extends Observable {
     }
 
     /**
-     * 運算的方法與計算
-     *用Switch的方法撰寫
+     * 運算的方法與計算 用Switch的方法撰寫
+     *
      * @param operator
      */
     public void performOperation(Operator operator) {
@@ -83,10 +91,15 @@ public class Calculator extends Observable {
         switch (operator) {
             case PLUS:
                 if (mOperator.equals("+")) {
-                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
-                            + Double.parseDouble(mShowNumber));
-                    mFirstNumber = mShowNumber;
-                    mEvenPlus = true;
+                    if (mEvenPlus) {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                + Double.parseDouble(mShowNumber));
+                    } else {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                + Double.parseDouble(mShowNumber));
+                        mFirstNumber = mShowNumber;
+                        mEvenPlus = true;
+                    }
                     //System.out.println("B: " + mBuffNumber + " F: " + mFirstNumber + " S:" + mShowNumber);
                 } else {
                     mFirstNumber = mShowNumber;
@@ -99,30 +112,61 @@ public class Calculator extends Observable {
                 break;
             case MINUS:
                 if (mOperator.equals("-")) {
-                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mShowNumber));
+                    if (mEvenMinus) {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                - Double.parseDouble(mShowNumber));
+                    } else {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                - Double.parseDouble(mShowNumber));
+                        mFirstNumber = mShowNumber;
+                        mEvenMinus = true;
+                    }
+                    //System.out.println("B: " + mBuffNumber + " F: " + mFirstNumber + " S:" + mShowNumber);
+                } else {
                     mFirstNumber = mShowNumber;
-                    mEvenMinus = true;
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                            - Double.parseDouble(mShowNumber));
                 }
                 mShowNumber = "";
                 mOperator = "-";
                 break;
             case TIMES:
                 if (mOperator.equals("*")) {
-                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mShowNumber));
+                    if (mEvenTimes) {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                * Double.parseDouble(mShowNumber));
+                    } else {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                * Double.parseDouble(mShowNumber));
+                        mFirstNumber = mShowNumber;
+                        mEvenTimes = true;
+                    }
+                    //System.out.println("B: " + mBuffNumber + " F: " + mFirstNumber + " S:" + mShowNumber);
+                } else {
                     mFirstNumber = mShowNumber;
-                    mEvenTimes = true;
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                            * Double.parseDouble(mShowNumber));
                 }
-                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "*";
                 break;
             case OVER:
                 if (mOperator.equals("/")) {
-                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
+                    if (mEvenOver) {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                / Double.parseDouble(mShowNumber));
+                    } else {
+                        mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                / Double.parseDouble(mShowNumber));
+                        mFirstNumber = mShowNumber;
+                        mEvenOver = true;
+                    }
+                    //System.out.println("B: " + mBuffNumber + " F: " + mFirstNumber + " S:" + mShowNumber);
+                } else {
                     mFirstNumber = mShowNumber;
-                    mEvenOver = true;
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                            / Double.parseDouble(mShowNumber));
                 }
-                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "/";
                 break;
@@ -156,7 +200,8 @@ public class Calculator extends Observable {
                 }
                 break;
             case PERCENT:
-                if (mOperator.equals("+") || mOperator.equals("-") || mOperator.equals("*") || mOperator.equals("/")) {
+                if (mOperator.equals("+") || mOperator.equals("-")
+                        || mOperator.equals("*") || mOperator.equals("/")) {
                     mShowNumber = String.valueOf(Double.parseDouble(mShowNumber) / 100);
                 }
                 break;
@@ -203,6 +248,7 @@ public class Calculator extends Observable {
                         mEvenOver = false;
                         break;
                 }
+
                 mOperator = "=";
                 mBuffNumber = "0";
                 mCheckPlusMinus = false;
@@ -249,8 +295,8 @@ public class Calculator extends Observable {
     }
 
     /**
-     * 把運算符號加在字串後方 以便判別
-     *加在一起後並回傳
+     * 把運算符號加在字串後方 以便判別 加在一起後並回傳
+     *
      * @return
      */
     public String getDisplay() {
