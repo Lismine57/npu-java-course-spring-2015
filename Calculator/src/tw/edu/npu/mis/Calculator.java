@@ -70,40 +70,53 @@ public class Calculator extends Observable {
         // TODO code application logic here
         switch (operator) {
             case PLUS:
-                mFirstNumber = mShowNumber;
                 if (mEvenPlus) {
                     mBuffNumber = mFirstNumber;
+                    mFirstNumber = String.valueOf(Double.parseDouble(mShowNumber) + Double.parseDouble(mBuffNumber));
+                    mBuffNumber = "";
+                    mShowNumber = mFirstNumber;
                 }
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "+";
                 mEvenPlus = true;
                 break;
             case MINUS:
-                mFirstNumber = mShowNumber;
                 if (mEvenMinus) {
-                    mBuffNumber = mFirstNumber;
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) - Double.parseDouble(mBuffNumber));
+                    mFirstNumber = "";
+                    mFirstNumber = mShowNumber;
                 }
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "-";
                 mEvenMinus = true;
                 break;
             case TIMES:
-                mFirstNumber = mShowNumber;
+
                 if (mEvenTimes) {
-                    mBuffNumber = mFirstNumber;
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) * Double.parseDouble(mBuffNumber));
+                    mFirstNumber = "";
+                    mFirstNumber = mShowNumber;
                 }
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "*";
                 mEvenTimes = true;
                 break;
             case OVER:
-                mFirstNumber = mShowNumber;
-                if (mEvenOver) {
-                    mBuffNumber = mFirstNumber;
+
+                if (mOperator == "/") {
+                    mBuffNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
+                    mFirstNumber = mShowNumber;
+                    System.out.println(mFirstNumber + "S: " + mShowNumber + "B:" + mBuffNumber);
+                    mEvenOver = true;
                 }
+                mFirstNumber = mShowNumber;
                 mShowNumber = "";
                 mOperator = "/";
-                mEvenOver = true;
+
+                System.out.println(mFirstNumber + "S: " + mShowNumber + "B:" + mBuffNumber);
                 break;
             case CLEAR:
                 mShowNumber = "";
@@ -138,32 +151,38 @@ public class Calculator extends Observable {
             case EQUAL:
                 switch (mOperator) {
                     case "+":
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
-                                + Double.parseDouble(mShowNumber)
-                                + Double.parseDouble(mBuffNumber));
+
+                        mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                + Double.parseDouble(mFirstNumber)
+                                + Double.parseDouble(mShowNumber));
+
                         mEvenPlus = false;
                         break;
                     case "-":
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
-                                - Double.parseDouble(mShowNumber)
-                                - Double.parseDouble(mBuffNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                - Double.parseDouble(mFirstNumber)
+                                - Double.parseDouble(mShowNumber));
                         mEvenMinus = false;
                         break;
                     case "*":
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
-                                * Double.parseDouble(mShowNumber)
-                                * Double.parseDouble(mBuffNumber));
+                        mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                * Double.parseDouble(mFirstNumber)
+                                * Double.parseDouble(mShowNumber));
                         mEvenTimes = false;
                         break;
                     case "/":
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber) / Double.parseDouble(mShowNumber));
-                        mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
-                                / Double.parseDouble(mShowNumber)
-                                / Double.parseDouble(mBuffNumber));
+                        if (mEvenOver) {
+                            mShowNumber = String.valueOf(Double.parseDouble(mBuffNumber)
+                                    / Double.parseDouble(mShowNumber));
+                        } else {
+                            mShowNumber = String.valueOf(Double.parseDouble(mFirstNumber)
+                                    / Double.parseDouble(mShowNumber));
+                        }
                         mEvenOver = false;
                         break;
                 }
                 mOperator = "=";
+                mBuffNumber = "0";
                 mCheckPlusMinus = false;
                 break;
             //mShowNumber = String.valueOf(Integer.parseInt(mShowNumber) * Integer.parseInt(mShowNumber));
