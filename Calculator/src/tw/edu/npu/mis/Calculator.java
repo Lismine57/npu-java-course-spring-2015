@@ -289,7 +289,7 @@ public class Calculator extends Observable {
                 mShowNumber = mBuffNumber;
                 break;
         }
-        //mOperatorMark = true;
+        mCheckDot = false;
         setChanged();
         notifyObservers();
     }
